@@ -37,10 +37,8 @@ def getPythonPath():
 # check for the existing files
 def deleteExistingFile():
     from pathlib import Path
-    #filePath = Path("D:\\Clark University\\TA Work\\Prof Pankush\\Final\\Python\\uniqueIdfile.csv")
     filePath = Path(completePath)
     if filePath.is_file():
-              #os.remove("D:\\Clark University\\TA Work\\Prof Pankush\\Final\\Python\\uniqueIdfile.csv")
               os.remove(filePath)
               print("\nFile exist...Deleted uniqueIdfile")
     else:
@@ -49,7 +47,6 @@ def deleteExistingFile():
 
 def linkParameterPass():
           linkList = []
-          #countGenre = 0
           # reading file line by line
           with open('D:\\Clark University\\TA Work\\Prof Pankush\\Final\\Python\\Link.txt') as file:
                     linkList.append(file.read().split("\n"))
@@ -97,7 +94,6 @@ def linkChange(linkGenre, linkListLength, countGenre, genre):
                       sleepCount1 = 0
                       print ("Sleeping for" + str(sleeptime1) + " sec since it reached interval of 200 links to find last page")
                       countdown(sleeptime1)
-                      #time.sleep(60)
                       print ("Resuming scraping")
             if (stopPageEdit != 0):
                       jj.append(r)
@@ -110,8 +106,7 @@ def linkChange(linkGenre, linkListLength, countGenre, genre):
                   linkComplete.append(j)
                   linkcompleteGenre.append(j)
     readLink(linkcompleteGenre, genre)
-    
-                  
+                
 def findLastPage(link,q):
           site = urllib.request.urlopen(link).read().decode("utf-8")
           j = str(q+1) + "<"
@@ -129,7 +124,6 @@ def findLastPage(link,q):
                     else:
                               returnValue = 1
                     
-          #sumCount = k + r
           return returnValue
           
 def getGenre(k):
@@ -139,7 +133,6 @@ def getGenre(k):
           return genre
 
 def readLink(myList1, genre):
-    #genre = getGenre(k)
     myList1Length = 0
     myList1Length = len(myList1)
     count = 0
@@ -166,10 +159,7 @@ def readLink(myList1, genre):
 def downloadingfile(line, genre):
           r = requests.get(line)
           data = bs4.BeautifulSoup(r.text, "html.parser")
-          #searched_word = "Next<"
-          #results = data.body.find_all(string=re.compile('.*{0}.*'.format(searched_word)), recursive=True)
-          #print ('Found the word "{0}" {1} times\n'.format(searched_word, len(results)))
-          for l in data.find_all("a"): #type of l is <class 'bs4.element.Tag'>
+          for l in data.find_all("a"): 
                     line = str(l.encode('utf8'))
                     if "https://itunes.apple.com/us/app/" in line:
                               if "/id" in line:
@@ -189,12 +179,6 @@ def uniqueID(b, genre):
           for line in d:
                     line = line.strip('id') # removing string-id from the idNumber
                     uId.append(line)
-          #file = open("D:\\Clark University\\TA Work\\Prof Pankush\\Final\\Python\\uniqueIdfile.csv", "w")
-          #### importing to csv which will store all the id in a single row.
-          #file = open(completePath, "w")
-          #writer = csv.writer(file, delimiter = ",")
-          #writer.writerow(uId)
-          #file.close()
           # importing using numpy to csv which will store all the id in a single column.
           import numpy as np
           np.savetxt(savePath, uId, delimiter=",", fmt='%s')
